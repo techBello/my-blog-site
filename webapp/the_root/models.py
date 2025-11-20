@@ -1,0 +1,57 @@
+from django.db import models # type: ignore
+from django.contrib.auth.models import User # type: ignore
+from django.utils.text import slugify
+
+# Create your models here.
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=100, help_text="enter your full name")
+    profile_pic = models.ImageField(upload_to="media/profile_images/")
+
+    def __str__(self):
+        return str(self.user.username)
+
+class Post(models.Model):
+    post_owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_title = models.CharField(max_length=150)
+    post_slug = models.SlugField(unique=True, blank=True)
+    post_img = models.ImageField(upload_to="media/post_images/")
+    post_detail = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        self.post_slug = slugify(self.post_title, allow_unicode=True)
+        super(Post, self).save(*args, **kwargs)    
+
+
+    def __str__(self):
+        return str(self.post_title)
+
+
+class Comments(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.TextField(null=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True, null=True)
+
+    def __str__(self):
+        return str(self.post.post_title)
+
+class Likes(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    like = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.post.post_title)
+
+class Services(models.Model):
+    service_name = models.CharField(max_length=150)
+    service_img = models.ImageField(upload_to="media/service_images/")
+    service_info = models.TextField()
+    service_price = models.IntegerField()
+
+    def __str__(self):
+        return str(self.service_name)
