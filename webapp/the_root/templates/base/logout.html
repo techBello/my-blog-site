@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -27,6 +28,16 @@
             </div>
         </nav>
         
+        <nav class="container pt-4">
+            <h2 class="mt-4">You have being logged Out</h2>
+            <small>click here to 
+            <a href="{% url 'signin' %}">Log in Again</a>
+            </small>
+        </nav>
+
+
+        <script src="{% static 'bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+        <script src"{% static 'detailjs/detailscripts.js' %}"></script>
 
     </body>
 </html>
