@@ -18,9 +18,11 @@ from django.contrib import admin # pyright: ignore[reportMissingModuleSource]
 from django.urls import path, include # pyright: ignore[reportMissingModuleSource]
 from django.conf import settings # type: ignore
 from django.conf.urls.static import static # type: ignore
+from the_root import views as signupview
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("signup/", signupview.signup, name="signup"),
     path('', include('the_root.urls', namespace='the_root'))
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
