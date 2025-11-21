@@ -39,6 +39,15 @@
         </header>
         <!-- Page content-->
         <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="container">
             <div class="row">
                 <!-- Blog entries-->
                 <div class="col-lg-8">
