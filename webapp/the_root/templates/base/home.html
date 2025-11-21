@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,7 +10,7 @@
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="detailcss/detailstyles.css" rel="stylesheet" />
+        <link href="{% static 'detailcss/detailstyles.css' %}" rel="stylesheet" />
     </head>
     <body>
         <!-- Responsive navbar-->
@@ -159,7 +160,9 @@
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
         </footer>
        <!-- Bootstrap core JS-->
-        <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>!-- Core theme JS-->
-        <script src="detailjs/detailscripts.js"></script>
+        <script src="{% static 'bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>!-- Core theme JS-->
+        <script src"{% static 'detailjs/detailscripts.js' %}"></script>
     </body>
 </html>
+
+"{% static '' %}"
