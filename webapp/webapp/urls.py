@@ -19,7 +19,7 @@ from django.urls import path, include # pyright: ignore[reportMissingModuleSourc
 from django.conf import settings # type: ignore
 from django.conf.urls.static import static # type: ignore
 from the_root import views as signupview
-from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views # type: ignore
 
 urlpatterns = [
     path('admin/', admin.site.urls),

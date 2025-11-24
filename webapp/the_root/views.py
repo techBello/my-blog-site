@@ -1,10 +1,15 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages
+from django.shortcuts import render, redirect # type: ignore
+from django.contrib.auth.forms import UserCreationForm # type: ignore
+from django.contrib import messages # type: ignore
+from .models import Post, Comments, Likes
 
 # Create your views here.
 def home(request):
-    return render(request, "base/home.html")
+    all_posts = Post.objects.all()
+    all_comments = Comments.objects.all()
+    all_likes = Likes.objects.all()
+
+    return render(request, "base/home.html", {'all_posts':all_posts, 'all_comments':all_comments, 'all_likes':all_likes})
 
 def about(request):
     return render(request, "base/About.html")
