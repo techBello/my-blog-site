@@ -40,7 +40,7 @@ class Comments(models.Model):
         return str(self.post.post_title)
 
 class Likes(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     like = models.BooleanField(default=False)
 
