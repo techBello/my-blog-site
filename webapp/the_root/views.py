@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect # type: ignore
+from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.contrib.auth.forms import UserCreationForm # type: ignore
 from django.contrib import messages # type: ignore
 from .models import Post, Comments, Likes
@@ -17,8 +17,9 @@ def about(request):
 def contact(request):
     return render(request, "base/contact.html")
 
-def detail(request):
-    return render(request, "base/detailindex.html")
+def detail(request, slug):
+    post = get_object_or_404(Post, post_slug=slug)
+    return render(request, "base/detailindex.html", {'post':post})
 
 def service(request):
     return render(request, "base/index.html")
