@@ -19,7 +19,8 @@ def contact(request):
 
 def detail(request, slug):
     post = get_object_or_404(Post, post_slug=slug)
-    return render(request, "base/detailindex.html", {'post':post})
+    comments = post.post_comment.all()
+    return render(request, "base/detailindex.html", {'post':post, 'comments':comments })
 
 def service(request):
     return render(request, "base/index.html")

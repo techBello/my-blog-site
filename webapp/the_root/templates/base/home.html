@@ -70,7 +70,7 @@
                             <div class="small text-muted">created on: {{ post.created }} <br/>
                                  updated on: {{ post.updated }}</div>
                             <h2 class="card-title">{{ post.post_title }}</h2>
-                            <p class="card-text">{{ post.post_detail }}</p>
+                            <p class="card-text">{{ post.post_detail|truncatewords:20 }}</p>
                             <div class="d-flex justify-content-between">
                                 <b>Likes: {{ post.likes.count }}👍🏾</b>
                                 <a class="btn btn-primary" href="{% url 'detail' slug=post.post_slug %}">Read more →</a>
