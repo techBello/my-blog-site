@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.contrib.auth.forms import UserCreationForm # type: ignore
 from django.contrib import messages # type: ignore
-from .models import Post, Comments, Likes
+from .models import Post, Comments, Likes, Profile
 
 # Create your views here.
 def home(request):
