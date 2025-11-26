@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
-from django.contrib.auth.forms import UserCreationForm # type: ignore
+from django.contrib.auth.forms import UserCreationForm  # type: ignore
+from .forms import UserProfileForm
 from django.contrib import messages # type: ignore
 from .models import Post, Comments, Likes, Profile
 
@@ -37,3 +38,30 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, "base/signup.html", {"form":form})
+
+def profile(request):
+    user = request.user
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            profile = Profile()  # create object
+            profile.user = request.user
+            profile.full_name = form.cleaned_data.get("full_name")
+            profile.profile_picture = form.cleaned_data.get("profile_picture")
+            profile.save()  # save to DB
+
+            # messages.success(request, f'Profile was updated for {name} !')
+            return redirect('home')
+    else:
+        form = UserProfileForm()
+    return render(request, "base/profile.html", {"form":form, "user":user})
+
+
+
+# profile = form.save(commit=False)
+# profile.user = user
+# profile.full_name = form.cleaned_data.get("full_name")
+# profile.profile_picture = form.cleaned_data.get("profile_picture")
+# print(profile.user, profile.full_name, profile.profile_picture)
+# print(profile)
+# profile.save()

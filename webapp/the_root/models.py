@@ -6,7 +6,7 @@ from django.utils.text import slugify # type: ignore
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile_dp')
     full_name = models.CharField(max_length=100, help_text="enter your full name")
-    profile_pic = models.ImageField(upload_to="media/profile_images/")
+    profile_picture = models.ImageField(upload_to="media/profile_images/")
 
     def __str__(self):
         return str(self.user.username)
