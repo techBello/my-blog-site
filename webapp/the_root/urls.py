@@ -10,4 +10,6 @@ urlpatterns = [
     path("detail/<slug:slug>", views.detail, name="detail"),
     path("services/", views.service, name="service"),
     path("profile/", views.profile, name="profile"),
+    path("all_post/", views.view_all_post, name="all_post"),
+    path("create_post/", views.create_post, name="create_post"),
 ]

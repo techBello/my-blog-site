@@ -31,20 +31,32 @@
             <form method="POST" enctype="multipart/form-data" class="card container">
                 {% csrf_token %}
                 <fieldset  class="form-group">
-                    <legend class="border-bottom mb-4">{{ user }}'s Profile</legend>
+                    <legend class="border-bottom mb-4"> <b>{{ user }}'s</b> Profile</legend>
                     {{ form|crispy }}
                 </fieldset>
                 <div class="form-group pt-3">
                     <button type="submit" class="btn btn-outline-info " >Submit</button>
                 </div>   
-                <div class="boder-top pt-3">
+                <div class="boder-top pt-3 pb-4">
                     <small class="">
-                        <a class="btn btn-outline-success" href="">All Posts</a>
-                        <a class="btn btn-outline-success" href="">Create Post</a>
-                        <a class="btn btn-outline-success" href=""></a>
+                        {% comment %} <a class="btn btn-outline-success" href="">All Posts</a>
+                        <a class="btn btn-outline-success" href="">Create Post</a> {% endcomment %}
+                        {% comment %} <a class="btn btn-outline-success" href=""></a> {% endcomment %}
                     </small>    
                 </div> 
             </form>
+        </nav>
+        <nav class="container pt-4 ">
+            <div class="card container">
+                <legend class="border-bottom">Activities</legend>
+                <div class="boder-top pt-3 pb-4">
+                    <small class="">
+                        <a class="btn btn-outline-success mb-3" href="">All Posts</a> <br/>
+                        <a class="btn btn-outline-success" href="">Create Post</a>
+                        {% comment %} <a class="btn btn-outline-success" href=""></a> {% endcomment %}
+                    </small>    
+                </div> 
+            </div>    
         </nav>
 
 
