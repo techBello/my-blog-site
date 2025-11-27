@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.contrib.auth.forms import UserCreationForm  # type: ignore
-from .forms import UserProfileForm
+from .forms import UserProfileForm, CreatePostForm
 from django.contrib import messages # type: ignore
 from .models import Post, Comments, Likes, Profile
 
@@ -63,7 +63,7 @@ def view_all_post(request):
 def create_post(request):
     user = request.user
     if request.method == "POST":
-        form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+        form = CreatePostForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             post = Post()  # create object
             post.user = request.user
@@ -75,8 +75,8 @@ def create_post(request):
             # messages.success(request, f'Profile was updated for {name} !')
             return redirect('home')
     else:
-        form = UserProfileForm()
-    return render(request, "base/create_post.html")
+        form = CreatePostForm()
+    return render(request, "base/create_post.html", {"form":form, "user":user})
 
 
 def edit_post(request):

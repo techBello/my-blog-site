@@ -15,7 +15,7 @@ class Post(models.Model):
     post_owner = models.ForeignKey(User, on_delete=models.CASCADE)
     post_title = models.CharField(max_length=150)
     post_slug = models.SlugField(unique=True, blank=True)
-    post_img = models.ImageField(upload_to="media/post_images/")
+    post_img = models.ImageField(upload_to="media/post_images/") # i will make it optional later and add default image
     post_detail = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
