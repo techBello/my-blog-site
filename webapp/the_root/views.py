@@ -57,6 +57,32 @@ def profile(request):
     return render(request, "base/profile.html", {"form":form, "user":user})
 
 
+def view_all_post(request):
+    return render(request, "base/all_post.html")
+
+def create_post(request):
+    user = request.user
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            post = Post()  # create object
+            post.user = request.user
+            post.post_title = form.cleaned_data.get("post_title")
+            post.post_img = form.cleaned_data.get("post_img")
+            post.post_detail = form.cleaned_data.get("post_detail")
+            profile.save()  # save to DB
+
+            # messages.success(request, f'Profile was updated for {name} !')
+            return redirect('home')
+    else:
+        form = UserProfileForm()
+    return render(request, "base/create_post.html")
+
+
+def edit_post(request):
+    return render(request, "base/edit_post.html")
+
+
 
 # profile = form.save(commit=False)
 # profile.user = user
