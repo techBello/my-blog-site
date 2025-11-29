@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Profile, Post
 from django.contrib.auth.forms import UserCreationForm
+from ckeditor.widgets import CKEditorWidget # type: ignore Optionally if we want to use CKEditor widget in forms
+
 
 # for creating custom form with custom fields we use this
 class UserRegisterForm(UserCreationForm):

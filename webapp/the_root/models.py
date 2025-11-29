@@ -1,6 +1,8 @@
 from django.db import models # type: ignore
 from django.contrib.auth.models import User # type: ignore
 from django.utils.text import slugify # type: ignore
+from ckeditor.fields import RichTextField # type: ignore
+
 
 # Create your models here.
 class Profile(models.Model):
@@ -16,7 +18,7 @@ class Post(models.Model):
     post_title = models.CharField(max_length=150)
     post_slug = models.SlugField(unique=True, blank=True)
     post_img = models.ImageField(upload_to="media/post_images/") # i will make it optional later and add default image
-    post_detail = models.TextField()
+    post_detail = RichTextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -32,7 +34,7 @@ class Post(models.Model):
 class Comments(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post_comment")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="commentor_name") #i need to user to profile 
-    comment = models.TextField(null=True)
+    comment = RichTextField(null=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
 
@@ -50,7 +52,7 @@ class Likes(models.Model):
 class Services(models.Model):
     service_name = models.CharField(max_length=150)
     service_img = models.ImageField(upload_to="media/service_images/")
-    service_info = models.TextField()
+    service_info = RichTextField()
     service_price = models.IntegerField()
 
     def __str__(self):
