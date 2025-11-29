@@ -58,7 +58,9 @@ def profile(request):
 
 
 def view_all_post(request):
-    return render(request, "base/all_post.html")
+    user = request.user
+    posts = Post.objects.filter(post_owner=user)
+    return render(request, "base/all_post.html", {"posts":posts, "user":user})
 
 def create_post(request):
     user = request.user
@@ -66,11 +68,11 @@ def create_post(request):
         form = CreatePostForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             post = Post()  # create object
-            post.user = request.user
+            post.post_owner = request.user
             post.post_title = form.cleaned_data.get("post_title")
             post.post_img = form.cleaned_data.get("post_img")
             post.post_detail = form.cleaned_data.get("post_detail")
-            profile.save()  # save to DB
+            post.save()  # save to DB
 
             # messages.success(request, f'Profile was updated for {name} !')
             return redirect('home')
@@ -79,8 +81,17 @@ def create_post(request):
     return render(request, "base/create_post.html", {"form":form, "user":user})
 
 
-def edit_post(request):
-    return render(request, "base/edit_post.html")
+def edit_post(request, slug):
+    post = get_object_or_404(Post, post_slug=slug)
+    if request.method == 'POST':
+        form = CreatePostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('all_post')
+    else:
+        form = CreatePostForm(instance=post)
+    return render(request, 'base/edit_post.html', {'form': form})
+    # return render(request, "base/edit_post.html", {"post":post})
 
 
 

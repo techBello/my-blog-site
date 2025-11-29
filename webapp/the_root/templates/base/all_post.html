@@ -63,18 +63,19 @@
                 <div class="col-lg-6">
                     <!-- Featured blog post-->
                     {% load static %}
-                    {% for post in all_posts %} 
+                    {% for post in posts %} 
                     <div class="card mb-4">
                         <a href="#!"><img class="card-img-top img-fluid"  src="{{ post.post_img.url }}" alt="..." /></a>
                         <div class="card-body">
                             <div class="small text-muted">created on: {{ post.created }} <br/>
                                  updated on: {{ post.updated }}</div>
                             <h2 class="card-title">{{ post.post_title }}</h2>
-                            <p class="card-text">{{ post.post_detail|truncatewords:20 }}</p>
+                            <p class="card-text">{{ post.post_detail}}</p>
                             <div class="d-flex justify-content-between">
                                 <b>Likes: {{ post.likes.count }}👍🏾</b>
-                                <a class="btn btn-primary" href="{% url 'detail' slug=post.post_slug %}">Read more →</a>
+                                {% comment %} <a class="btn btn-primary" href="{% url 'detail' slug=post.post_slug %}">Read more →</a> {% endcomment %}
                             </div>
+                            <a class="btn btn-outline-success" href="{% url 'edit_post' slug=post.post_slug %}">Edit post</a>
                         </div>
                     </div>                        
                     {% endfor %}
