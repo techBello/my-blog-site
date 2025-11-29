@@ -23,7 +23,7 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Blog</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'service' %}">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
                         {% if user.is_authenticated %}
                             {% comment %} <a class="btn btn-success" href="{% url 'signout' %}">Logout</a> {% endcomment %}
                             <form method="POST" action="{% url 'signout' %}">
@@ -70,7 +70,7 @@
                             <div class="small text-muted">created on: {{ post.created }} <br/>
                                  updated on: {{ post.updated }}</div>
                             <h2 class="card-title">{{ post.post_title }}</h2>
-                            <p class="card-text">{{ post.post_detail}}</p>
+                            <p class="card-text">{{ post.post_detail|safe}}</p>
                             <div class="d-flex justify-content-between">
                                 <b>Likes: {{ post.likes.count }}👍🏾</b>
                                 {% comment %} <a class="btn btn-primary" href="{% url 'detail' slug=post.post_slug %}">Read more →</a> {% endcomment %}

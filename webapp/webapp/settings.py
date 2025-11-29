@@ -75,6 +75,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'webapp.wsgi.application'
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+        ],
+        'removePlugins': 'stylesheetparser',
+        'allowedContent': True,  # Or use 'p b i ul ol li a' to limit
+    }
+}
+
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

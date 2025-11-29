@@ -1,7 +1,7 @@
-from django import forms
-from django.contrib.auth.models import User
+from django import forms # type: ignore
+from django.contrib.auth.models import User # type: ignore
 from .models import Profile, Post
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm # type: ignore
 from ckeditor.widgets import CKEditorWidget # type: ignore Optionally if we want to use CKEditor widget in forms
 
 
@@ -21,6 +21,7 @@ class UserProfileForm(forms.ModelForm):
 
 
 class CreatePostForm(forms.ModelForm):
+    post_detail = forms.CharField(widget=CKEditorWidget())
 
     class Meta:
         model = Post

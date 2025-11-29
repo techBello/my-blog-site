@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm  # type: ignore
 from .forms import UserProfileForm, CreatePostForm
 from django.contrib import messages # type: ignore
 from .models import Post, Comments, Likes, Profile
+import bleach
+
 
 # Create your views here.
 def home(request):
@@ -72,6 +74,14 @@ def create_post(request):
             post.post_title = form.cleaned_data.get("post_title")
             post.post_img = form.cleaned_data.get("post_img")
             post.post_detail = form.cleaned_data.get("post_detail")
+             # Clean the content
+            post.post_detail = bleach.clean(
+                post.post_detail,
+                tags=['p', 'b', 'i', 'u', 'ul', 'ol', 'li', 'a', 'br', 'strong', 'em'],
+                attributes={'a': ['href', 'title']},
+                strip=True
+            )
+
             post.save()  # save to DB
 
             # messages.success(request, f'Profile was updated for {name} !')
