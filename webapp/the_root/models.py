@@ -22,6 +22,9 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    def total_likes(self):
+        return self.likes_set.count()
+
     def save(self, *args, **kwargs):
         self.post_slug = slugify(self.post_title, allow_unicode=True)
         super(Post, self).save(*args, **kwargs)    
@@ -45,6 +48,9 @@ class Likes(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     like = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ('post', 'user')
 
     def __str__(self):
         return str(self.post.post_title)

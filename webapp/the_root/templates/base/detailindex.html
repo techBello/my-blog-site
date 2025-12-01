@@ -63,9 +63,13 @@
                             <div></div>
                             <div>{% if user.is_authenticated %}
                             {% comment %} <a class="btn btn-success" href="{% url 'signout' %}">Logout</a> {% endcomment %}
-                            <form method="POST" action="{% url 'signout' %}">
+                            <form method="POST" action="{% url 'like_post' %}">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-success">Like</button>
+                                {% if user.is_authenticated and post.like_set.filter(user=user).exists %}
+                                    <button type="submit" class="btn btn-success">Unlike</button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-success">Like</button>
+                                {% endif %}
                             </form>
                         {% endif %}</div>
                         </div>

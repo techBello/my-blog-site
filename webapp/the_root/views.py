@@ -104,8 +104,14 @@ def edit_post(request, slug):
     # return render(request, "base/edit_post.html", {"post":post})
 
 def like_post(request, slug):
+    user = request.user
+    like_instance = Like()
     post = get_object_or_404(Post, post_slug=slug)
     comments = post.post_comment.all()
+    if request.user.is_authenticated:
+        like, created = Like.objects.get_or_create(post=post, user=user)
+        if not created:
+            like.delete()
     return render(request, "base/detailindex.html", {'post':post, 'comments':comments })
 
 
