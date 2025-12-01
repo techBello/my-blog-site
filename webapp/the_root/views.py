@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.contrib.auth.forms import UserCreationForm  # type: ignore
 from .forms import UserProfileForm, CreatePostForm
 from django.contrib import messages # type: ignore
-from .models import Post, Comments, Likes, Profile
+from .models import Post, Comments, Likes, Profile, Like
 import bleach
 
 
@@ -102,6 +102,11 @@ def edit_post(request, slug):
         form = CreatePostForm(instance=post)
     return render(request, 'base/edit_post.html', {'form': form})
     # return render(request, "base/edit_post.html", {"post":post})
+
+def like_post(request, slug):
+    post = get_object_or_404(Post, post_slug=slug)
+    comments = post.post_comment.all()
+    return render(request, "base/detailindex.html", {'post':post, 'comments':comments })
 
 
 
