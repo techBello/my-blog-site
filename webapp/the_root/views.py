@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.contrib.auth.forms import UserCreationForm  # type: ignore
 from .forms import UserProfileForm, CreatePostForm
 from django.contrib import messages # type: ignore
-from .models import Post, Comments, Likes, Profile, Like
+from .models import Post, Comments, Likes, Profile, Likes
 import bleach
 
 
@@ -105,7 +105,7 @@ def edit_post(request, slug):
 
 def like_post(request, slug):
     user = request.user
-    like_instance = Like()
+    like_instance = Likes()
     post = get_object_or_404(Post, post_slug=slug)
     comments = post.post_comment.all()
     if request.user.is_authenticated:
