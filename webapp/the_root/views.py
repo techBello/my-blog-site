@@ -107,12 +107,23 @@ def like_post(request, slug):
     user = request.user
     like_instance = Likes()
     post = get_object_or_404(Post, post_slug=slug)
-    comments = post.post_comment.all()
+
+    total_likes = Likes.objects.filter(post=post).count()
+    user_liked = Likes.objects.filter(post=post, user=request.user).exists()
+    
+    print(post, user)
+    print(total_likes, user_liked)
     if request.user.is_authenticated:
-        like, created = Like.objects.get_or_create(post=post, user=user)
-        if not created:
-            like.delete()
-    return render(request, "base/detailindex.html", {'post':post, 'comments':comments })
+        likes = request.POST.get('like')
+        
+        like_instance.post = post
+        like_instance.user = user
+        like_instance.like = likes
+        like_instance.save()
+
+    return render(request, "base/detailindex.html", {'post':post,
+                                                     total_likes:'total_likes',
+                                                       user_liked:'user_liked'})
 
 
 
