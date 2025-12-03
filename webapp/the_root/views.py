@@ -105,7 +105,6 @@ def edit_post(request, slug):
 
 def like_post(request, slug):
     user = request.user
-    like_instance = Likes()
     post = get_object_or_404(Post, post_slug=slug)
 
     total_likes = Likes.objects.filter(post=post).count()
@@ -113,13 +112,23 @@ def like_post(request, slug):
     
     print(post, user)
     print(total_likes, user_liked)
+    if request.method == "POST":
+        print("1a",request.user.is_authenticated)
+        print("2a",request.POST.get("action"))
+
     if request.user.is_authenticated:
-        likes = request.POST.get('like')
-        
-        like_instance.post = post
-        like_instance.user = user
-        like_instance.like = likes
-        like_instance.save()
+        likes = request.POST.get("action")
+        action = request.POST.get("action")
+        print(f"Action: '{action}'")  # Should print: 'save'
+
+        print(likes)
+        if user_liked:
+            like_instance = Likes.objects.get(post=post, user=user)
+            like_instance.like = likes
+            like_instance.save()
+        else:
+            new_like = Likes(post=post, user=user, like=likes)
+            new_like.save()
 
     return render(request, "base/detailindex.html", {'post':post,
                                                      total_likes:'total_likes',
