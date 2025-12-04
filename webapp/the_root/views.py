@@ -123,7 +123,7 @@ def like_post(request, slug):
 
         print(likes)
         if user_liked:
-            like_instance = Likes.objects.get(post=post, user=user)
+            like_instance = Likes.objects.get(post=post, user=user, like=likes)
             like_instance.like = likes
             like_instance.save()
         else:
