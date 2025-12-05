@@ -65,7 +65,7 @@
                             {% comment %} <a class="btn btn-success" href="{% url 'signout' %}">Logout</a> {% endcomment %}
                             <form method="post" action="{% url 'like_post' slug=post.post_slug %}">
                                 {% csrf_token %}
-                                {% if user.is_authenticated  %}
+                                {% if user_liked_is_true  %}
                                     <button type="submit" class="btn btn-success" name="action" value="False">Unlike</button>
                                 {% else %}
                                     <button type="submit" class="btn btn-success" name="action" value"True">Like</button>
