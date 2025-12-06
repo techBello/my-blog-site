@@ -65,10 +65,17 @@
                             {% comment %} <a class="btn btn-success" href="{% url 'signout' %}">Logout</a> {% endcomment %}
                             <form method="post" action="{% url 'like_post' slug=post.post_slug %}">
                                 {% csrf_token %}
-                                {% if user_liked_is_true  %}
-                                    <button type="submit" class="btn btn-success" name="action" value="False">Unlike</button>
+                                {% comment %} <button type="submit" class="btn btn-success" name="action">
+                                    {% if post.likes.filter(user=request.user, like=True).exists %}
+                                    Unlike
+                                    {% else %}
+                                    Like
+                                    {% endif %}
+                                </button> {% endcomment %}
+                                {% if user_liked %}
+                                <button type="submit" class="btn btn-success" name="action" value="False">Like</button>
                                 {% else %}
-                                    <button type="submit" class="btn btn-success" name="action" value"True">Like</button>
+                                <button type="submit" class="btn btn-success" name="action" value="True" >Unlike</button>
                                 {% endif %}
                             </form>
                         {% endif %}</div>

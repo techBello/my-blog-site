@@ -110,39 +110,21 @@ def edit_post(request, slug):
 def like_post(request, slug):
     user = request.user
     post = get_object_or_404(Post, post_slug=slug)
+    like_obj, created = Likes.objects.get_or_create(user=user, post=post)
+    user_liked = Likes.objects.filter(post=post, user=request.user, like=True).exists()
 
-    total_likes = Likes.objects.filter(post=post).count()
-    user_liked_is_true = Likes.objects.filter(post=post, user=request.user, like=True).exists()
-    user_liked_is_false = Likes.objects.filter(post=post, user=request.user, like=False).exists()
-    print("if user liked is true:", user_liked_is_true)
-    print("if user liked is false:", user_liked_is_false)
-    if request.user.is_authenticated:
-        likes = request.POST.get('action')
-        print("like value from form:", likes)
-        if user_liked_is_true:           
-            try:
-                Likes.objects.update_or_create(
-                post=post,
-                user=request.user,
-                defaults={'like': likes}) 
-                print("New like saved.")
-            except Exception as e:
-                print("Error saving like:", e)
-        else:          
-            try:
-                Likes.objects.update_or_create(
-                post=post,
-                user=request.user,
-                defaults={'like': likes})  
-                print("in else New like saved.")
-            except Exception as e:
-                print("Error saving like:", e)
+
+    if not created:
+        # If already exists, toggle the like
+        like_obj.like = not like_obj.like
+        # print("Toggled like to:", like_obj.like)
+        like_obj.save()
+    else:
+        # New like is already True by default
+        pass
             
 
-    return render(request, "base/detailindex.html", {'post':post,
-                                                     'total_likes':total_likes,
-                                                       'user_liked_is_true':user_liked_is_true,
-                                                       'user_liked_is_false':user_liked_is_false})
+    return render(request, "base/detailindex.html", {'post':post, 'user_liked': user_liked})
 
 
 
