@@ -20,7 +20,7 @@
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="homecss/homestyles.css" rel="stylesheet" />
+        <link href="{% static 'homecss/homestyles.css' %}" rel="stylesheet" />
     </head>
     <body>
         <!-- Responsive navbar-->
@@ -44,14 +44,30 @@
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
                 <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="camera.jpeg" alt="..." /></div>
                 <div class="col-lg-5">
-                    <h1 class="font-weight-light">Business Name or Tagline</h1>
-                    <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
-                    <a class="btn btn-success" href="#!">Call to Action!</a>
+                    <h1 class="font-weight-light">Tech-Bello's Web Work</h1>
+                    <p>
+                        Tech-Bello is a modern software solutions company focused on building powerful, 
+                        scalable, and user-friendly web applications. We specialize in turning ideas 
+                        into real-world digital products using the latest technologies in web development.
+                    </p>
+                    <a class="btn btn-success" href="{% url 'contact' %}">Call to Action!</a>
                 </div>
             </div>
             <!-- Call to Action-->
             <div class="card text-white bg-secondary my-5 py-4 text-center">
-                <div class="card-body"><p class="text-white m-0">This call to action card is a great place to showcase some important information or display a clever tagline!</p></div>
+                <div class="card-body"><p class="text-white text-start m-0">
+                    <b>Our core strengths include:</b> </br>
+                    </br>
+                    < Full-stack web application development (Frontend + Backend) /> </br>
+                    < API integration and development /></br>
+                    < Database design and management /></br>
+                    < UI/UX-focused design implementation /></br>
+                    < Agile development and timely delivery /></br>
+                    </br>
+                    <b>"At Tech-Bello, we combine deep computer science principles 
+                    with practical development to build clean, efficient, and future-ready solutions."</b>
+
+                </p></div>
             </div>
             <!-- Content Row-->
             <div class="row gx-4 gx-lg-5">
@@ -86,13 +102,58 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <div id="projectCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <!-- Indicators -->
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="0" class="active"></button>
+                        <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="2"></button>
+                    </div>
+
+                    <!-- Carousel items -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                        <img src="project1.jpg" class="d-block w-100" alt="Project 1">
+                        <div class="carousel-caption bg-dark bg-opacity-50 rounded">
+                            <h5>Project One</h5>
+                            <p>Responsive E-commerce Web App</p>
+                        </div>
+                        </div>
+                        <div class="carousel-item">
+                        <img src="project2.jpg" class="d-block w-100" alt="Project 2">
+                        <div class="carousel-caption bg-dark bg-opacity-50 rounded">
+                            <h5>Project Two</h5>
+                            <p>School Management System</p>
+                        </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="project3.jpg" class="d-block w-100" alt="Project 3">
+                        <div class="carousel-caption bg-dark bg-opacity-50 rounded">
+                            <h5>Project Three</h5>
+                            <p>Online Portfolio Website</p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                    </div>
+
+
+            <div>
         </div>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
         </footer>
         <!-- Bootstrap core JS-->
-        <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script><!-- Core theme JS-->
-        <script src="homejs/homescripts.js"></script>
+        <script src="{% static 'bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script><!-- Core theme JS-->
+        <script src="{% static 'homejs/homescripts.js' %}"></script>
     </body>
 </html>

@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm  # type: ignore
 from .forms import UserProfileForm, CreatePostForm
 from django.contrib import messages # type: ignore
 from .models import Post, Comments, Likes, Profile, Likes
-import bleach
+import bleach # type: ignore
 
 
 # Create your views here.
@@ -23,10 +23,6 @@ def contact(request):
 def detail(request, slug):
     post = get_object_or_404(Post, post_slug=slug)
     comments = post.post_comment.all()
-    user_liked_is_true = Likes.objects.filter(post=post, user=request.user, like=True).exists()
-    user_liked_is_false = Likes.objects.filter(post=post, user=request.user, like=False).exists()
-    print("if user liked is true:", user_liked_is_true)
-    print("if user liked is false:", user_liked_is_false)
     return render(request, "base/detailindex.html", {'post':post, 'comments':comments })
 
 def service(request):
