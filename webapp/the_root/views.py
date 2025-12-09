@@ -15,7 +15,7 @@ def search_posts(request):
             Q(title_icontains=query) | Q(content_icontains=query)
         )
 
-    return render(request, 'blog/search_results.html', {'results': results, 'query': query})
+    return render(request, 'base/search_results.html', {'results': results, 'query': query})
 
 
 
