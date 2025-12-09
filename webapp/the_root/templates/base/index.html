@@ -40,6 +40,10 @@
         </nav>
         <!-- Page Content-->
         <div class="container px-4 px-lg-5">
+            <form method="GET" action="{% url 'blog:search' %}">
+                <input type="text" name="q" placeholder="Search blog...">
+                <button type="submit">Search</button>
+            </form>
             <!-- Heading Row-->
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
                 <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="{% static 'assets/img/tech-bello-copy.jpg' %}" alt="..." /></div>

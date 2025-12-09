@@ -4,6 +4,19 @@ from .forms import UserProfileForm, CreatePostForm
 from django.contrib import messages # type: ignore
 from .models import Post, Comments, Likes, Profile, Likes
 import bleach # type: ignore
+from django.db.models import Q # type: ignore
+
+def search_posts(request):
+    query = request.GET.get('q')
+    results = []
+
+    if query:
+        results = Post.objects.filter(
+            Q(title_icontains=query) | Q(content_icontains=query)
+        )
+
+    return render(request, 'blog/search_results.html', {'results': results, 'query': query})
+
 
 
 # Create your views here.
