@@ -29,6 +29,11 @@ def service(request):
     return render(request, "base/index.html")
 
 
+def service_detail(request, slug):
+    services = get_object_or_404(service, post_slug=slug)
+    return render(request, "base/detailindex.html", {'services':services})
+
+
 def signup(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)

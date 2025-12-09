@@ -57,9 +57,15 @@ class Likes(models.Model):
 
 class Services(models.Model):
     service_name = models.CharField(max_length=150)
+    service_slug = models.SlugField(unique=True, blank=True)
     service_img = models.ImageField(upload_to="media/service_images/")
     service_info = RichTextField()
     service_price = models.IntegerField()
+
+    def save(self, *args, **kwargs):
+        self.service_slug = slugify(self.service_name, allow_unicode=True)
+        super(Post, self).save(*args, **kwargs)    
+
 
     def __str__(self):
         return str(self.service_name)
