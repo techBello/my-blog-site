@@ -9,7 +9,7 @@ from django.db.models import Q # type: ignore
 def search_posts(request):
     query = request.GET.get('q')
     results = []
-
+    print(query)
     if query:
         results = Post.objects.filter(
             Q(title_icontains=query) | Q(content_icontains=query)
