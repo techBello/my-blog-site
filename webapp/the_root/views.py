@@ -9,12 +9,12 @@ from django.db.models import Q # type: ignore
 def search_posts(request):
     query = request.GET.get('q')
     results = []
-    print(query)
+
     if query:
         results = Post.objects.filter(
-            Q(title__icontains=query) | Q(content__icontains=query)
+            Q(post_title__icontains=query) | Q(post_detail__icontains=query)
         )
-
+    print("Search results:", results)
     return render(request, 'base/search_results.html', {'results': results, 'query': query})
 
 

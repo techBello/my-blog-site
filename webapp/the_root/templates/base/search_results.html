@@ -42,11 +42,11 @@
                 <div class="col-lg-8">
                     <!-- Post content-->
                     <h2>Search Results for "{{ query }}"</h2>
-
+                    <p>the result is {{ results }}</p>
                     {% if results %}
                     <ul>
                         {% for post in results %}
-                        <li><a href="{% url 'the_root:post_detail' post.id %}">{{ post.title }}</a></li>
+                        <li><a href="{% url 'detail' post.post_slug %}" class="text">{{ post.post_title }}</a></li>
                         {% endfor %}
                     </ul>
                     {% else %}
@@ -58,9 +58,9 @@
             </div>
         </div>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
+        {% comment %} <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-        </footer>
+        </footer> {% endcomment %}
         <!-- Bootstrap core JS-->
         <script src="{% static 'bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script><!-- Core theme JS-->
         <script src="{% static 'homejs/homescripts.js' %}"></script>
