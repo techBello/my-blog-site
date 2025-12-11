@@ -69,10 +69,12 @@
         
 
         <div class="container">
-            <form method="GET" action="{% url 'search' %}" class="form form-group">
-                <input type="text" name="q" placeholder="Search blog...">
-                <button type="submit">Search</button>
-            </form>
+            <div clas="container form form-group">
+                <form method="GET" action="{% url 'search' %}" class="">
+                    <input type="text" name="q" placeholder="Search blog...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
             <div class="row">
                 <!-- Blog entries-->
                 <div class="col-lg-6">

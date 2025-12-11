@@ -12,7 +12,7 @@ def search_posts(request):
     print(query)
     if query:
         results = Post.objects.filter(
-            Q(title_icontains=query) | Q(content_icontains=query)
+            Q(title__icontains=query) | Q(content__icontains=query)
         )
 
     return render(request, 'base/search_results.html', {'results': results, 'query': query})
