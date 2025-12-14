@@ -64,11 +64,20 @@ def profile(request):
     if request.method == "POST":
         form = UserProfileForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
-            profile = Profile()  # create object
-            profile.user = request.user
-            profile.full_name = form.cleaned_data.get("full_name")
-            profile.profile_picture = form.cleaned_data.get("profile_picture")
-            profile.save()  # save to DB
+            full_name = form.cleaned_data.get("full_name")
+            profile_picture = form.cleaned_data.get("profile_picture")    
+            profile, created = Profile.objects.update_or_create(
+            user=user,
+            defaults={
+                'full_name': full_name,
+                'profile_picture': profile_picture,
+            })
+
+            if created:
+                pass
+            else:
+                pass
+
 
             # messages.success(request, f'Profile was updated for {name} !')
             return redirect('home')
