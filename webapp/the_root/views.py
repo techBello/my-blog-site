@@ -36,7 +36,8 @@ def contact(request):
 def detail(request, slug):
     post = get_object_or_404(Post, post_slug=slug)
     comments = post.post_comment.all()
-    return render(request, "base/detailindex.html", {'post':post, 'comments':comments })
+    user_liked = Likes.objects.filter(post=post, user=request.user, like=True).exists()
+    return render(request, "base/detailindex.html", {'post':post, 'comments':comments, 'user_liked': user_liked })
 
 def service(request):
     return render(request, "base/index.html")
@@ -142,17 +143,19 @@ def like_post(request, slug):
         like_obj.like = not like_obj.like
         # print("Toggled like to:", like_obj.like)
         like_obj.save()
+        return redirect('detail', slug)
     else:
         # New like is already True by default
         pass
-            
+    
 
     return render(request, "base/detailindex.html", {'post':post, 'user_liked': user_liked})
 
 # workiing on this comment function
 def comment_post(request, slug):
-    User = request.user
+    user = request.user
     post = get_object_or_404(Post, post_slug=slug)
+    comments = post.post_comment.all()
 
     if request.method == "POST":
         comment = Comments()
@@ -161,10 +164,10 @@ def comment_post(request, slug):
         comment.post = post
         comment.comment = request.POST.get("comment")
         comment.save()
+        return redirect('detail', slug)
 
 
-
-    return render(request, "base/detailindex.html", {'post':post, 'user_liked': user_liked})
+    return render(request, "base/detailindex.html", {'post':post})
 
 
 # profile = form.save(commit=False)

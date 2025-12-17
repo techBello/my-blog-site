@@ -91,7 +91,10 @@
                             <h2 class="card-title">{{ post.post_title }}</h2>
                             <p class="card-text">{{ post.post_detail|truncatewords:20|safe }}</p>
                             <div class="d-flex justify-content-between">
-                                <b>Likes: {{ post.likes.count }}👍🏾</b>
+                                <b>
+                                    Likes:{{ post.likes.count }}👍🏾
+                                </b>
+                                {{ all_likes }}
                                 <a class="btn btn-primary" href="{% url 'detail' slug=post.post_slug %}">Read more →</a>
                             </div>
                         </div>
