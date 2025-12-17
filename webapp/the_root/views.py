@@ -23,8 +23,7 @@ def search_posts(request):
 def home(request):
     all_posts = Post.objects.all()
     all_comments = Comments.objects.all()
-    all_likes = Likes.objects.all()
-
+    all_likes = Likes.objects.filter(like=True)
     return render(request, "base/home.html", {'all_posts':all_posts, 'all_comments':all_comments, 'all_likes':all_likes})
 
 def about(request):

@@ -36,8 +36,10 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    
+    @property
     def total_likes(self):
-        return self.likes_set.count()
+        return self.likes.filter(like=True).count()
 
     def save(self, *args, **kwargs):
         self.post_slug = slugify(self.post_title, allow_unicode=True)
@@ -65,6 +67,8 @@ class Likes(models.Model):
 
     class Meta:
         unique_together = ('post', 'user')
+
+
 
     def __str__(self):
         return str(self.post.post_title)
