@@ -151,21 +151,18 @@ def like_post(request, slug):
 
 # workiing on this comment function
 def comment_post(request, slug):
-    user = request.user
+    User = request.user
     post = get_object_or_404(Post, post_slug=slug)
-    comment_obj, created = Comments.objects.get_or_create(usser=user, post=post)
-    user_comment = Comments.objects.filter(post=post, user=request.user, like=True).exists()
+
+    if request.method == "POST":
+        comment = Comments()
+        print("post",post)
+        comment.user = user
+        comment.post = post
+        comment.comment = request.POST.get("comment")
+        comment.save()
 
 
-    if not created:
-        # If already exists, toggle the like
-        comment_obj.comment = not comment_obj.comment
-        # print("Toggled like to:", like_obj.like)
-        comment_obj.save()
-    else:
-        # New like is already True by default
-        pass
-            
 
     return render(request, "base/detailindex.html", {'post':post, 'user_liked': user_liked})
 
