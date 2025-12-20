@@ -40,6 +40,14 @@
                 {% csrf_token %}
                 <fieldset  class="form-group">
                     <legend class="border-bottom mb-4"> <b>{{ user }}'s</b> Profile</legend>
+                    <div>
+                        <!-- Display user's profile image -->
+                        {% if user.profile.image %}
+                            <img src="{{ user.profile.image.url }}" alt="Profile Image" style="width:150px; border-radius:50%;">
+                        {% else %}
+                            <img src="{% static 'default.webp' %}" alt="Default Image" style="width:150px;">
+                        {% endif %}
+                    </div>
                     {{ form|crispy }}
                 </fieldset>
                 <div class="form-group pt-3">
