@@ -24,6 +24,7 @@ def home(request):
     all_posts = Post.objects.all()
     all_comments = Comments.objects.all()
     all_likes = Likes.objects.filter(like=True)
+
     return render(request, "base/home.html", {'all_posts':all_posts, 'all_comments':all_comments, 'all_likes':all_likes})
 
 def about(request):
@@ -35,8 +36,12 @@ def contact(request):
 def detail(request, slug):
     post = get_object_or_404(Post, post_slug=slug)
     comments = post.post_comment.all()
-    user_liked = Likes.objects.filter(post=post, user=request.user, like=True).exists()
-    return render(request, "base/detailindex.html", {'post':post, 'comments':comments, 'user_liked': user_liked })
+    if request.user is not None and request.user.is_authenticated:
+        user_liked = Likes.objects.filter(post=post, user=request.user, like=True).exists()
+        return render(request, "base/detailindex.html", {'post':post, 'comments':comments, 'user_liked': user_liked })
+    else:
+        return render(request, "base/detailindex.html", {'post':post, 'comments':comments})
+
 
 def service(request):
     return render(request, "base/index.html")

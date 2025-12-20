@@ -48,9 +48,9 @@
         <!-- Page header with logo and tagline-->
         <header class="py-5 bg-light border-bottom mb-4">
             <div class="container">
-                <form method="GET" action="{% url 'search' %}">
-                    <input type="text" name="q" placeholder="Search blog...">
-                    <button type="submit">Search</button>
+                <form method="GET" action="{% url 'search' %}" class="">
+                    <input type="text" class="form-control mb-2"  name="q" placeholder="Search blog...">
+                    <button class="btn btn-primary mb-2" type="submit">Search</button>
                 </form>
                 <div class="text-center my-5">
                     <h1 class="fw-bolder">Welcome to my Blog!</h1>
