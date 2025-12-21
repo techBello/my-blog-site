@@ -40,17 +40,18 @@
                 {% csrf_token %}
                 <fieldset  class="form-group">
                     <legend class="border-bottom mb-4"> <b>{{ user }}'s</b> Profile</legend>
-                    <div>
+                    <div class="mb-3 mt-3 d-flex justify-content-center">
+                        
                         <!-- Display user's profile image -->
-                        {% if user.profile.image %}
-                            <img src="{{ user.profile.image.url }}" alt="Profile Image" style="width:150px; border-radius:50%;">
+                        {% if user.profile_dp.profile_picture %}
+                            <img src="{{ user.profile_dp.profile_picture.url }}" alt="Profile Image" style="width:150px; border-radius:50%;">
                         {% else %}
-                            <img src="{% static 'default.webp' %}" alt="Default Image" style="width:150px;">
+                            <img src="{% static 'assets\img\dafault.webp' %}" alt="Default Image" style="width:150px;">
                         {% endif %}
                     </div>
                     {{ form|crispy }}
                 </fieldset>
-                <div class="form-group pt-3">
+                <div class="form-group pt-3"> 
                     <button type="submit" class="btn btn-outline-info " >Submit</button>
                 </div>   
                 <div class="boder-top pt-3 pb-4">
