@@ -5,6 +5,7 @@ from django.contrib import messages # type: ignore
 from .models import Post, Comments, Likes, Profile, Likes
 import bleach # type: ignore
 from django.db.models import Q # type: ignore
+from django.core.mail import send_mail # type: ignore
 
 def search_posts(request):
     query = request.GET.get('q')
@@ -181,3 +182,23 @@ def comment_post(request, slug):
 # print(profile.user, profile.full_name, profile.profile_picture)
 # print(profile)
 # profile.save()
+
+def contact_view(request):
+    form = ContactForm()
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            
+            # Send email or save to DB
+            send_mail(
+                f"Message from {name}",
+                message,
+                email,
+                ['your_email@example.com'],  # Replace with your email
+            )
+            return redirect('contact_success')  # Redirect after success
+
+    return render(request, 'contact.html', {'form': form})
