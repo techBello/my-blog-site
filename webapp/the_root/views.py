@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.contrib.auth.forms import UserCreationForm  # type: ignore
-from .forms import UserProfileForm, CreatePostForm
+from .forms import UserProfileForm, CreatePostForm, ContactForm
 from django.contrib import messages # type: ignore
 from .models import Post, Comments, Likes, Profile, Likes
 import bleach # type: ignore
@@ -31,8 +31,6 @@ def home(request):
 def about(request):
     return render(request, "base/About.html")
 
-def contact(request):
-    return render(request, "base/contact.html")
 
 def detail(request, slug):
     post = get_object_or_404(Post, post_slug=slug)
@@ -183,7 +181,7 @@ def comment_post(request, slug):
 # print(profile)
 # profile.save()
 
-def contact_view(request):
+def contact(request):
     form = ContactForm()
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -199,6 +197,6 @@ def contact_view(request):
                 email,
                 ['your_email@example.com'],  # Replace with your email
             )
-            return redirect('contact_success')  # Redirect after success
+            return redirect('home')  # Redirect after success
 
-    return render(request, 'contact.html', {'form': form})
+    return render(request, 'base/contact.html', {'form': form})
