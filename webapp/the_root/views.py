@@ -6,6 +6,8 @@ from .models import Post, Comments, Likes, Profile, Likes
 import bleach # type: ignore
 from django.db.models import Q # type: ignore
 from django.core.mail import send_mail # type: ignore
+from django.core.paginator import Paginator # type: ignore
+
 
 def search_posts(request):
     query = request.GET.get('q')
@@ -22,11 +24,16 @@ def search_posts(request):
 
 # Create your views here.
 def home(request):
-    all_posts = Post.objects.all()
+    all_posts = Post.objects.all().order_by('-created')
+    paginator = Paginator(all_posts, 2)  # Show 5 posts per page
     all_comments = Comments.objects.all()
     all_likes = Likes.objects.filter(like=True)
 
-    return render(request, "base/home.html", {'all_posts':all_posts, 'all_comments':all_comments, 'all_likes':all_likes})
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+
+    return render(request, "base/home.html", {'all_posts':all_posts, 'all_comments':all_comments, 'all_likes':all_likes, 'page_obj':page_obj})
 
 def about(request):
     return render(request, "base/About.html")
