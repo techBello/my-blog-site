@@ -180,13 +180,6 @@ def comment_post(request, slug):
     return render(request, "base/detailindex.html", {'post':post})
 
 
-# profile = form.save(commit=False)
-# profile.user = user
-# profile.full_name = form.cleaned_data.get("full_name")
-# profile.profile_picture = form.cleaned_data.get("profile_picture")
-# print(profile.user, profile.full_name, profile.profile_picture)
-# print(profile)
-# profile.save()
 
 def contact(request):
     form = ContactForm()
